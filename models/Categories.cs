@@ -15,7 +15,7 @@ public class Categories
 
     [Required]
     [Column("CategoryDescription")]
-    public int? CategoryDescription { get; set; }
+    public string? CategoryDescription { get; set; }
 
     [Column("created_at")]
     public DateTime? CreatedAt { get; set; }
@@ -23,5 +23,5 @@ public class Categories
     [Column("updated_at")]
     public DateTime? UpdatedAt { get; set; }
 
-    public Posts? Posts { get; set; }
+    public List<Posts>? Posts { get; set; }
 }

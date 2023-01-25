@@ -14,12 +14,12 @@ public class AppDbContext : DbContext
     {
         modelBuilder.Entity<Posts>()
             .HasOne(b => b.Users)
-            .WithOne(i => i.Posts)
-            .HasForeignKey<Posts>(b => b.OwnerId);
+            .WithMany(i => i.Posts)
+            .HasForeignKey(b => b.OwnerId);
 
         modelBuilder.Entity<Posts>()
             .HasOne(b => b.Categories)
-            .WithOne(i => i.Posts)
-            .HasForeignKey<Posts>(b => b.CategoryId);
+            .WithMany(i => i.Posts)
+            .HasForeignKey(b => b.CategoryId);
     }
 }

@@ -22,7 +22,8 @@ namespace MyBlogAPI.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CategoryName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CategoryDescription = table.Column<int>(type: "int", nullable: false),
+                    CategoryDescription = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     createdat = table.Column<DateTime>(type: "datetime(6)", name: "created_at", nullable: true),
                     updatedat = table.Column<DateTime>(type: "datetime(6)", name: "updated_at", nullable: true)
                 },
@@ -35,7 +36,7 @@ namespace MyBlogAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                    Users = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -86,14 +87,12 @@ namespace MyBlogAPI.Migrations
             _ = migrationBuilder.CreateIndex(
                 name: "IX_Posts_Category",
                 table: "Posts",
-                column: "Category",
-                unique: true);
+                column: "Category");
 
             _ = migrationBuilder.CreateIndex(
                 name: "IX_Posts_OwnerId",
                 table: "Posts",
-                column: "OwnerId",
-                unique: true);
+                column: "OwnerId");
         }
 
         /// <inheritdoc />

@@ -11,7 +11,7 @@ using MyBlog_API.context;
 namespace MyBlogAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230125192334_FirstMigration")]
+    [Migration("20230125203125_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -28,9 +28,9 @@ namespace MyBlogAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryDescription")
+                    b.Property<string>("CategoryDescription")
                         .IsRequired()
-                        .HasColumnType("int")
+                        .HasColumnType("longtext")
                         .HasColumnName("CategoryDescription");
 
                     b.Property<string>("CategoryName")
@@ -89,11 +89,9 @@ namespace MyBlogAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId")
-                        .IsUnique();
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex("OwnerId")
-                        .IsUnique();
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Posts");
                 });
@@ -121,7 +119,7 @@ namespace MyBlogAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
-                        .HasColumnName("Title");
+                        .HasColumnName("Users");
 
                     b.Property<int?>("UserLevel")
                         .IsRequired()
@@ -147,14 +145,14 @@ namespace MyBlogAPI.Migrations
             modelBuilder.Entity("Models.Models.Posts", b =>
                 {
                     b.HasOne("Models.Models.Categories", "Categories")
-                        .WithOne("Posts")
-                        .HasForeignKey("Models.Models.Posts", "CategoryId")
+                        .WithMany("Posts")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Models.Models.Users", "Users")
-                        .WithOne("Posts")
-                        .HasForeignKey("Models.Models.Posts", "OwnerId")
+                        .WithMany("Posts")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

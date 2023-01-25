@@ -10,7 +10,7 @@ public class Users
 
     [Required]
     [MaxLength(255)]
-    [Column("Title")]
+    [Column("Users")]
     public string? User { get; set; }
 
     [Required]
@@ -36,5 +36,5 @@ public class Users
     [Column("updated_at")]
     public DateTime? UpdatedAt { get; set; }
 
-    public Posts? Posts { get; set; }
+    public List<Posts>? Posts { get; set; }
 }
