@@ -14,16 +14,20 @@ public class Posts
     public string? Title { get; set; }
 
     [Required]
-    [Column("Category")]
-    public int? CategoryId { get; set; }
-
-    [Required]
     [Column("Content")]
     public string? Content { get; set; }
 
     [Required]
     [Column("OwnerId")]
     public int? OwnerId { get; set; }
+
+    public Users? Users { get; set; }
+
+    [Required]
+    [Column("Category")]
+    public int? CategoryId { get; set; }
+
+    public Categories? Categories { get; set; }
 
     [Column("created_at")]
     public DateTime? CreatedAt { get; set; }

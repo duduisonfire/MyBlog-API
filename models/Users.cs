@@ -35,4 +35,6 @@ public class Users
 
     [Column("updated_at")]
     public DateTime? UpdatedAt { get; set; }
+
+    public Posts? Posts { get; set; }
 }
