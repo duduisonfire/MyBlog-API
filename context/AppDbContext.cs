@@ -1,6 +1,6 @@
-namespace MyBlog_API.context;
+namespace MyBlogAPI.context;
 using Microsoft.EntityFrameworkCore;
-using Models.Models;
+using MyBlogAPI.Models;
 
 public class AppDbContext : DbContext
 {

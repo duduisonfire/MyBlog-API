@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Models.Models;
+namespace MyBlogAPI.Models;
 
 [Table("Users")]
 public class Users
