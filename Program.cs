@@ -1,30 +1,58 @@
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
 using MyBlogAPI.context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 DotEnv.Load();
-var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+string? connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+string? tokenSecret = Environment.GetEnvironmentVariable("JwtSecret");
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+var key = Encoding.ASCII.GetBytes(tokenSecret!);
+builder.Services
+    .AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(x =>
+    {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+        };
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString,
-                                            ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddDbContext<AppDbContext>(
+    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+);
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    _ = app.UseSwagger();
+    _ = app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
