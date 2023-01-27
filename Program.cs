@@ -1,6 +1,6 @@
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
-using MyBlog_API.context;
+using MyBlogAPI.context;
 
 DotEnv.Load();
 var connectionString = Environment.GetEnvironmentVariable("ConnectionString");

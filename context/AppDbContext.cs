@@ -21,5 +21,9 @@ public class AppDbContext : DbContext
             .HasOne(b => b.Categories)
             .WithMany(i => i.Posts)
             .HasForeignKey(b => b.CategoryId);
+
+        modelBuilder.Entity<Users>()
+            .HasIndex(u => u.User)
+            .IsUnique();
     }
 }

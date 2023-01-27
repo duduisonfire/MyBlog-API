@@ -22,11 +22,9 @@ public class Users
     [Column("UserName")]
     public string? UserName { get; set; }
 
-    [Required]
     [Column("UserPhoto")]
     public string? UserPhoto { get; set; }
 
-    [Required]
     [Column("UserLevel")]
     public int? UserLevel { get; set; }
 
