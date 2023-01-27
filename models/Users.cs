@@ -39,7 +39,7 @@ namespace MyBlog_API.models
         public List<Posts>? Posts { get; set; }
     }
 
-    public class UserDbVerify
+    public class ToVerifyUser
     {
         [Required]
         [MaxLength(255)]

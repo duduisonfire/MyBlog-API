@@ -17,7 +17,7 @@ namespace MyBlog_API.controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<string> UserLogin(UserDbVerify user)
+        public ActionResult<string> UserLogin(ToVerifyUser user)
         {
             if (user is null)
             {
