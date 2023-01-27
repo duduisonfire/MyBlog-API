@@ -39,16 +39,13 @@ namespace MyBlog_API.models
         public List<Posts>? Posts { get; set; }
     }
 
-    [Table("Users")]
     public class UserDbVerify
     {
         [Required]
         [MaxLength(255)]
-        [Column("Users")]
         public string? User { get; set; }
 
         [Required]
-        [Column("Password")]
         public string? Password { get; set; }
     }
 }
