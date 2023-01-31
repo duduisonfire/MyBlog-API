@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyBlog_API.models;
 using MyBlogAPI.context;
 using MyBlogAPI.services;
@@ -17,14 +18,14 @@ namespace MyBlog_API.controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<string> UserLogin(ToVerifyUser user)
+        public async Task<ActionResult<string>> UserLogin(ToVerifyUser user)
         {
             if (user is null)
             {
                 return BadRequest(new {message = "User is null."});
             }
 
-            var dbUser = context.Users?.FirstOrDefault(p => p.User == user.User);
+            var dbUser = await context.Users!.FirstOrDefaultAsync(p => p.User == user.User);
 
             if (dbUser == null)
             {
@@ -39,14 +40,14 @@ namespace MyBlog_API.controllers
         }
 
         [HttpPost]
-        public ActionResult UserRegister([FromBody] Users user)
+        public async Task<ActionResult> UserRegister([FromBody] Users user)
         {
             if (user is null)
             {
                 return BadRequest(new {message ="User is null."});
             }
 
-            var dbUser = context.Users?.FirstOrDefault(p => p.User == user.User);
+            var dbUser = await context.Users!.FirstOrDefaultAsync(p => p.User == user.User);
 
             if (dbUser != null)
             {
@@ -59,8 +60,8 @@ namespace MyBlog_API.controllers
             user.CreatedAt = DateTime.Now;
             user.UpdatedAt = DateTime.Now;
 
-            context.Users?.Add(user);
-            context.SaveChanges();
+            await context.Users!.AddAsync(user);
+            await context.SaveChangesAsync();
 
             return Created("Account created Successful.", new { id = user.Id, user = user.User });
         }
