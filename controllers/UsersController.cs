@@ -39,7 +39,7 @@ namespace MyBlog_API.controllers
             return TokenService.GenerateToken(dbUser);
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ActionResult> UserRegister([FromBody] Users user)
         {
             if (user is null)
