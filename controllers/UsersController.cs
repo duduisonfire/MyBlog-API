@@ -47,14 +47,14 @@ namespace MyBlog_API.controllers
         {
             if (user is null)
             {
-                return BadRequest(new {message ="User is null."});
+                return BadRequest(new {message = "User is null."});
             }
 
             var dbUser = await context.Users!.FirstOrDefaultAsync(p => p.User == user.User);
 
             if (dbUser != null)
             {
-                return BadRequest(new {message ="User already exists."});
+                return BadRequest(new {message = "User already exists."});
             }
 
             user.UserPhoto = "./";
