@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBlog_API.models;
@@ -17,6 +18,7 @@ namespace MyBlog_API.controllers
             this.context = context;
         }
 
+        [EnableCors]
         [HttpPost("login")]
         public async Task<ActionResult<string>> UserLogin(ToVerifyUser user)
         {
@@ -39,6 +41,7 @@ namespace MyBlog_API.controllers
             return TokenService.GenerateToken(dbUser);
         }
 
+        [EnableCors]
         [HttpPost("register")]
         public async Task<ActionResult> UserRegister([FromBody] Users user)
         {

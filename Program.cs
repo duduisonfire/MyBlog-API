@@ -35,6 +35,13 @@ builder.Services
         };
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyAllowSpecificOrigins",
+                      policy => policy.WithOrigins("http://localhost:3000")
+                      .AllowAnyHeader());
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(
@@ -52,9 +59,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("MyAllowSpecificOrigins");
+
 app.UseAuthentication();
 
 app.UseAuthorization();
+
 
 app.MapControllers();
 
