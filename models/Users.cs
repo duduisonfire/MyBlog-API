@@ -12,7 +12,7 @@ namespace MyBlog_API.models
 
         [Required]
         [MaxLength(255)]
-        [Column("Users")]
+        [Column("User")]
         public string? User { get; set; }
 
         [Required]
@@ -26,6 +26,11 @@ namespace MyBlog_API.models
 
         [Column("UserPhoto")]
         public string? UserPhoto { get; set; }
+
+        [Required]
+        [MaxLength(255)]
+        [Column("UserEmail")]
+        public string? UserEmail { get; set; }
 
         [Column("UserLevel")]
         public int? UserLevel { get; set; }
