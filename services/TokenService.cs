@@ -18,7 +18,7 @@ namespace MyBlogAPI.services
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.NameIdentifier, user.User!),
                     new Claim(ClaimTypes.Role, user.UserLevel.ToString()!),
-                    new Claim(ClaimTypes.Name, user.UserName!),
+                    new Claim(ClaimTypes.Name, user.UserFullName!),
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),

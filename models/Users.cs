@@ -21,8 +21,8 @@ namespace MyBlog_API.models
 
         [Required]
         [MaxLength(255)]
-        [Column("UserName")]
-        public string? UserName { get; set; }
+        [Column("UserFullName")]
+        public string? UserFullName { get; set; }
 
         [Column("UserPhoto")]
         public string? UserPhoto { get; set; }

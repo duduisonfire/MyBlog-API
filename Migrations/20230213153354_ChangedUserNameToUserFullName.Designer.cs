@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlogAPI.context;
 
@@ -10,9 +11,11 @@ using MyBlogAPI.context;
 namespace MyBlogAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230213153354_ChangedUserNameToUserFullName")]
+    partial class ChangedUserNameToUserFullName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,15 +127,15 @@ namespace MyBlogAPI.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("UserEmail");
 
-                    b.Property<string>("UserFullName")
+                    b.Property<int?>("UserLevel")
+                        .HasColumnType("int")
+                        .HasColumnName("UserLevel");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("UserFullName");
-
-                    b.Property<int?>("UserLevel")
-                        .HasColumnType("int")
-                        .HasColumnName("UserLevel");
 
                     b.Property<string>("UserPhoto")
                         .HasColumnType("longtext")
@@ -141,9 +144,6 @@ namespace MyBlogAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("User")
-                        .IsUnique();
-
-                    b.HasIndex("UserEmail")
                         .IsUnique();
 
                     b.ToTable("Users");

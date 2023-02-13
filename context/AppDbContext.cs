@@ -26,5 +26,9 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Users>()
             .HasIndex(u => u.User)
             .IsUnique();
+
+        modelBuilder.Entity<Users>()
+            .HasIndex(u => u.UserEmail)
+            .IsUnique();
     }
 }
