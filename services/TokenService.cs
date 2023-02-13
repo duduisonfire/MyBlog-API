@@ -15,7 +15,8 @@ namespace MyBlogAPI.services
             var key = Encoding.ASCII.GetBytes(tokenSecret!);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] {
+                Subject =
+                    new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.NameIdentifier, user.User!),
                     new Claim(ClaimTypes.Role, user.UserLevel.ToString()!),
                     new Claim(ClaimTypes.Name, user.UserFullName!),
