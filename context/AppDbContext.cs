@@ -14,14 +14,14 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Posts>()
-            .HasOne(b => b.Users)
-            .WithMany(i => i.Posts)
-            .HasForeignKey(b => b.OwnerId);
+            .HasOne(post => post.Owner)
+            .WithMany(user => user.Posts)
+            .HasForeignKey(post => post.OwnerId);
 
         modelBuilder.Entity<Posts>()
-            .HasOne(b => b.Categories)
-            .WithMany(i => i.Posts)
-            .HasForeignKey(b => b.CategoryId);
+            .HasOne(post => post.Categories)
+            .WithMany(categories => categories.Posts)
+            .HasForeignKey(post => post.CategoryId);
 
         modelBuilder.Entity<Users>()
             .HasIndex(u => u.User)

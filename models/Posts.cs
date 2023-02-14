@@ -23,7 +23,7 @@ public class Posts
     [Column("OwnerId")]
     public int? OwnerId { get; set; }
 
-    public Users? Users { get; set; }
+    public Users? Owner { get; set; }
 
     [Required]
     [Column("Category")]
