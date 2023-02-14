@@ -50,11 +50,17 @@ namespace MyBlog_API.controllers
                 return BadRequest(new {message = "User is null."});
             }
 
-            var dbUser = await context.Users!.FirstOrDefaultAsync(p => p.User == user.User);
+            var dbUser = await context.Users!.FirstOrDefaultAsync(p => p.User == user.User ||
+                                                                p.UserEmail == user.UserEmail);
 
-            if (dbUser != null)
+            if (dbUser != null && dbUser!.User == user.User)
             {
-                return BadRequest(new {message = "User already exists."});
+                return BadRequest(new {error = "user-already-exist", message = "User already exists."});
+            }
+
+            if (dbUser != null && dbUser!.UserEmail == user.UserEmail)
+            {
+                return BadRequest(new {error = "email-already-exist", message = "Email already exists."});
             }
 
             user.UserLevel = 1;
@@ -65,7 +71,7 @@ namespace MyBlog_API.controllers
             await context.Users!.AddAsync(user);
             await context.SaveChangesAsync();
 
-            return Created("Account created Successful.", new { id = user.Id, user = user.User });
+            return Created("/account-created", new { id = user.Id, user = user.User });
         }
     }
 }
