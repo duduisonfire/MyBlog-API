@@ -57,6 +57,7 @@ namespace MyBlog_API.controllers
                 return BadRequest(new {message = "User already exists."});
             }
 
+            user.UserLevel = 1;
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             user.CreatedAt = DateTime.Now;
             user.UpdatedAt = DateTime.Now;
