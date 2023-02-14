@@ -20,7 +20,7 @@ namespace MyBlog_API.controllers
 
         [EnableCors]
         [HttpPost("login")]
-        public async Task<ActionResult<string>> UserLogin(ToVerifyUser user)
+        public async Task<ActionResult<string>> UserLogin(ToLoginUser user)
         {
             if (user is null)
             {
