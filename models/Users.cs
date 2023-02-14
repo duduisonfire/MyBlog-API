@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyBlogAPI.Models;
@@ -32,6 +33,7 @@ namespace MyBlog_API.models
         [Column("UserEmail")]
         public string? UserEmail { get; set; }
 
+        [DefaultValue(1)]
         [Column("UserLevel")]
         public int? UserLevel { get; set; }
 
