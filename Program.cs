@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 DotEnv.Load();
 string? connectionString = Environment.GetEnvironmentVariable("ConnectionString");
 string? tokenSecret = Environment.GetEnvironmentVariable("JwtSecret");
+string? policyOrigin = Environment.GetEnvironmentVariable("Policy");
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +39,7 @@ builder.Services
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "MyAllowSpecificOrigins",
-                      policy => policy.WithOrigins("http://localhost:3000")
+                      policy => policy.WithOrigins(policyOrigin!)
                       .AllowAnyHeader());
 });
 
