@@ -11,23 +11,23 @@ namespace MyBlog_API.controllers
     [Route("api/users")]
     public class UserController : Controller
     {
-        private readonly AppDbContext context;
+        private readonly AppDbContext _context;
 
         public UserController(AppDbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
 
         [EnableCors]
         [HttpPost("login")]
-        public async Task<ActionResult<string>> UserLogin(ToLoginUser user)
+        public async Task<ActionResult<string>> UserLogin(ToLoginUser? user)
         {
             if (user is null)
             {
                 return BadRequest(new {message = "User is null."});
             }
 
-            var dbUser = await context.Users!.FirstOrDefaultAsync(p => p.User == user.User);
+            var dbUser = await _context.Users!.FirstOrDefaultAsync(p => p.User == user.User);
 
             if (dbUser == null)
             {
@@ -43,14 +43,14 @@ namespace MyBlog_API.controllers
 
         [EnableCors]
         [HttpPost("register")]
-        public async Task<ActionResult> UserRegister([FromBody] Users user)
+        public async Task<ActionResult> UserRegister([FromBody] Users? user)
         {
             if (user is null)
             {
                 return BadRequest(new {message = "User is null."});
             }
 
-            var dbUser = await context.Users!.FirstOrDefaultAsync(p => p.User == user.User ||
+            var dbUser = await _context.Users!.FirstOrDefaultAsync(p => p.User == user.User ||
                                                                 p.UserEmail == user.UserEmail);
 
             if (dbUser != null && dbUser!.User == user.User)
@@ -68,8 +68,8 @@ namespace MyBlog_API.controllers
             user.CreatedAt = DateTime.Now;
             user.UpdatedAt = DateTime.Now;
 
-            await context.Users!.AddAsync(user);
-            await context.SaveChangesAsync();
+            await _context.Users!.AddAsync(user);
+            await _context.SaveChangesAsync();
 
             return Created("/account-created", new { id = user.Id, user = user.User });
         }
