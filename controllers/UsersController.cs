@@ -15,7 +15,7 @@ namespace MyBlog_API.controllers
 
         public UserController(AppDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         [EnableCors]
