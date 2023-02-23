@@ -16,7 +16,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var key = Encoding.ASCII.GetBytes(tokenSecret!);
+byte[] key = Encoding.ASCII.GetBytes(tokenSecret!);
 builder.Services
     .AddAuthentication(options =>
     {
@@ -38,9 +38,10 @@ builder.Services
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "MyAllowSpecificOrigins",
-                      policy => policy.WithOrigins(policyOrigin!)
-                      .AllowAnyHeader());
+    options.AddPolicy(
+        name: "MyAllowSpecificOrigins",
+        policy => policy.WithOrigins(policyOrigin!).AllowAnyHeader()
+    );
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -65,7 +66,6 @@ app.UseCors("MyAllowSpecificOrigins");
 app.UseAuthentication();
 
 app.UseAuthorization();
-
 
 app.MapControllers();
 

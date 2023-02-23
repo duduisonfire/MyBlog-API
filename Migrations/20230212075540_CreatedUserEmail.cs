@@ -10,42 +10,38 @@ namespace MyBlogAPI.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Users",
-                table: "Users",
-                newName: "User");
+            _ = migrationBuilder.RenameColumn(name: "Users", table: "Users", newName: "User");
 
-            migrationBuilder.RenameIndex(
+            _ = migrationBuilder.RenameIndex(
                 name: "IX_Users_Users",
-                table: "Users",
-                newName: "IX_Users_User");
+                newName: "IX_Users_User",
+                table: "Users"
+            );
 
-            migrationBuilder.AddColumn<string>(
-                name: "UserEmail",
-                table: "Users",
-                type: "varchar(255)",
-                maxLength: 255,
-                nullable: false,
-                defaultValue: "")
+            _ = migrationBuilder
+                .AddColumn<string>(
+                    name: "UserEmail",
+                    table: "Users",
+                    type: "varchar(255)",
+                    maxLength: 255,
+                    nullable: false,
+                    defaultValue: ""
+                )
                 .Annotation("MySql:CharSet", "utf8mb4");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "UserEmail",
-                table: "Users");
+            _ = migrationBuilder.DropColumn(name: "UserEmail", table: "Users");
 
-            migrationBuilder.RenameColumn(
-                name: "User",
-                table: "Users",
-                newName: "Users");
+            _ = migrationBuilder.RenameColumn(name: "User", table: "Users", newName: "Users");
 
-            migrationBuilder.RenameIndex(
+            _ = migrationBuilder.RenameIndex(
                 name: "IX_Users_User",
-                table: "Users",
-                newName: "IX_Users_Users");
+                newName: "IX_Users_Users",
+                table: "Users"
+            );
         }
     }
 }
