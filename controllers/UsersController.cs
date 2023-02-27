@@ -43,7 +43,7 @@ namespace MyBlog_API.controllers
 
         [EnableCors]
         [HttpPost("register")]
-        public async Task<ActionResult> UserRegister([FromBody] Users? user)
+        public async Task<ActionResult> UserRegister(Users? user)
         {
             if (user is null)
             {
