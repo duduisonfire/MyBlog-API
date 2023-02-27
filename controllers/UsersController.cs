@@ -29,7 +29,7 @@ namespace MyBlog_API.controllers
 
             var dbUser = await _context.Users!.FirstOrDefaultAsync(p => p.User == user.User);
 
-            if (dbUser == null)
+            if (dbUser is null)
             {
                 return NotFound(new {message = "User doesn't exists."});
             }
@@ -53,12 +53,12 @@ namespace MyBlog_API.controllers
             var dbUser = await _context.Users!.FirstOrDefaultAsync(p => p.User == user.User ||
                                                                 p.UserEmail == user.UserEmail);
 
-            if (dbUser != null && dbUser!.User == user.User)
+            if (dbUser != null && dbUser.User == user.User)
             {
                 return BadRequest(new {error = "user-already-exist", message = "User already exists."});
             }
 
-            if (dbUser != null && dbUser!.UserEmail == user.UserEmail)
+            if (dbUser != null && dbUser.UserEmail == user.UserEmail)
             {
                 return BadRequest(new {error = "email-already-exist", message = "Email already exists."});
             }
