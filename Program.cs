@@ -10,7 +10,7 @@ string? connectionString = Environment.GetEnvironmentVariable("ConnectionString"
 string? tokenSecret = Environment.GetEnvironmentVariable("JwtSecret");
 string? policyOrigin = Environment.GetEnvironmentVariable("Policy");
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 byte[] key = Encoding.ASCII.GetBytes(tokenSecret!);
 
 // Add services to the container.
