@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MyBlog_API.models;
-
 namespace MyBlogAPI.Models;
 
 [Table("Posts")]

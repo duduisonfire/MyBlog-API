@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MyBlog_API.models;
 using MyBlogAPI.context;
 using MyBlogAPI.services;
+using MyBlogAPI.Models;
 
-namespace MyBlog_API.Controllers;
+namespace MyBlogApi.Controllers;
 
 [ApiController]
 [Route("api/users")]
