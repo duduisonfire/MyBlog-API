@@ -3,32 +3,30 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using MyBlogAPI.Models;
+namespace MyBlogAPI.Services;
 
-namespace MyBlogAPI.services
+public static class TokenService
 {
-    public static class TokenService
+    public static string GenerateToken(Users user)
     {
-        public static string GenerateToken(Users user)
+        var tokenHandler = new JwtSecurityTokenHandler();
+        string? tokenSecret = Environment.GetEnvironmentVariable("JwtSecret");
+        byte[] key = Encoding.ASCII.GetBytes(tokenSecret!);
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenSecret = Environment.GetEnvironmentVariable("JwtSecret");
-            var key = Encoding.ASCII.GetBytes(tokenSecret!);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject =
-                    new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.NameIdentifier, user.User!),
-                    new Claim(ClaimTypes.Role, user.UserLevel.ToString()!),
-                    new Claim(ClaimTypes.Name, user.UserFullName!),
-                }),
-                Expires = DateTime.UtcNow.AddHours(8),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                                                  SecurityAlgorithms.HmacSha256Signature)
-            };
+            Subject =
+                new ClaimsIdentity(new[] {
+                new Claim(ClaimTypes.NameIdentifier, user.User!),
+                new Claim(ClaimTypes.Role, user.UserLevel.ToString()!),
+                new Claim(ClaimTypes.Name, user.UserFullName!),
+            }),
+            Expires = DateTime.UtcNow.AddHours(8),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                                                SecurityAlgorithms.HmacSha256Signature)
+        };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+        SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHandler.WriteToken(token);
-        }
+        return tokenHandler.WriteToken(token);
     }
 }

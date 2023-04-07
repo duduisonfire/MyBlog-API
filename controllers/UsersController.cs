@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBlogAPI.context;
-using MyBlogAPI.services;
 using MyBlogAPI.Models;
+using MyBlogAPI.Services;
 
 namespace MyBlogApi.Controllers;
 
