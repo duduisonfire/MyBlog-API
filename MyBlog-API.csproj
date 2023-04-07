@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>MyBlog_API</RootNamespace>
+    <RootNamespace>MyBlogAPI</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
